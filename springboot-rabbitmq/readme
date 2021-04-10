@@ -1,0 +1,4 @@
+An example of Spring Boot + RabbitMQ
+
+*consumer MsgReceiver will acknowledge rabbitMQ once it finished process the msg.
+*Queue is durable.
