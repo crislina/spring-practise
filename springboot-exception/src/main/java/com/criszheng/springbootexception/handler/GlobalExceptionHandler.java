@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.criszheng.springbootexception.exception.ErrorMsg;
+import com.criszheng.springbootexception.exception.IllegalPropertiesException;
+import com.criszheng.springbootexception.exception.NullOrEmptyException;
 import com.criszheng.springbootexception.exception.SessionNotFoundException;
 
 /**
@@ -22,9 +24,21 @@ public class GlobalExceptionHandler {
 	public ErrorMsg<String> sessionNotFoundExceptionHandler(HttpServletRequest request, SessionNotFoundException exception) throws Exception{
 		return handleErrorInfo(request,exception.getMessage(),exception);
 	}
+	
+	@ResponseBody
+	@ExceptionHandler(NullOrEmptyException.class)
+	public ErrorMsg<String> nullOrEmptyExcpetionHandler(HttpServletRequest request, SessionNotFoundException exception) throws Exception{
+		return handleErrorInfo(request,exception.getMessage(),exception);
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(IllegalPropertiesException.class)
+	public ErrorMsg<String> illegalPropertiesHandler(HttpServletRequest request, IllegalPropertiesException exception) throws Exception{
+		return handleErrorInfo(request,exception.getMessage(),exception);
+	}
 
 	private ErrorMsg<String> handleErrorInfo(HttpServletRequest request, String message,
-			SessionNotFoundException exception) {
+			Exception exception) {
 		// TODO Auto-generated method stub
 		ErrorMsg<String> errorMessage = new ErrorMsg<>();
         errorMessage.setMessage(message);
